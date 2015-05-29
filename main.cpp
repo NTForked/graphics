@@ -1,6 +1,5 @@
 #include <iostream>
 #ifdef __linux__
-#include <unistd.h>
 #include <GL/freeglut.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -26,12 +25,6 @@ public :
         glPushMatrix();
         glBindTexture(GL_TEXTURE_2D,textureid);
         glTranslatef(position.X(), position.Y(), position.Z());
-        /*glBegin(GL_QUADS);
-              glTexCoord2f( 0.0f, 1.0f ); glVertex3f( -x, -y, 0.0f );
-              glTexCoord2f( 1.0f, 1.0f ); glVertex3f(  x, -y, 0.0f );
-              glTexCoord2f( 1.0f, 0.0f ); glVertex3f(  x,  y, 0.0f );
-              glTexCoord2f( 0.0f, 0.0f ); glVertex3f( -x, y, 0.0f );
-        glEnd();*/
         glutSolidSphere(radius,10,10);
         glPopMatrix();
     }
@@ -72,13 +65,6 @@ GLuint GetTextId(const char *texture_name)
                SOIL_LOAD_AUTO,
                SOIL_CREATE_NEW_ID,
                SOIL_FLAG_POWER_OF_TWO
-               //| SOIL_FLAG_MIPMAPS
-               //| SOIL_FLAG_MULTIPLY_ALPHA
-               //| SOIL_FLAG_COMPRESS_TO_DXT
-               | SOIL_FLAG_DDS_LOAD_DIRECT
-               //| SOIL_FLAG_NTSC_SAFE_RGB
-               //| SOIL_FLAG_CoCg_Y
-               //| SOIL_FLAG_TEXTURE_RECTANGLE
                ));
 
 }
@@ -87,12 +73,6 @@ GLuint GetTextId(const char *texture_name)
 void resize(int width, int height)
 {    
     glViewport(0, 0, width, height);
-    /*glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(45,(4/3.0f),2,100);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    camera.LookAt();*/
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(45,(float)width/(float)height,0.1f,100);
@@ -109,35 +89,6 @@ void display()
     oldtime=newtime;    
     pars.drawparticl1es();    
     glutSwapBuffers();    
-}
-
-void key(unsigned char key, int x, int y)
-{
-    switch (key){
-    case 27:
-        exit(0);
-        break;
-    case 'a':
-        camera.MoveRight(-1);
-        glLoadIdentity();
-        camera.LookAt();
-        break;
-    case 'd':
-        camera.MoveRight(1);
-        glLoadIdentity();
-        camera.LookAt();
-        break;
-    case 'w':
-        camera.MoveForward(-2);
-        glLoadIdentity();
-        camera.LookAt();
-        break;
-    case 's':
-        camera.MoveForward(2);
-        glLoadIdentity();
-        camera.LookAt();
-        break;
-    }
 }
 void idle()
 {

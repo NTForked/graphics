@@ -25,14 +25,8 @@ public :
     void proceedintime()
     {
         position+=velocity*(*deltatime);
-        /*thetarotate+=rotationalvelocity*deltatime;
-        while(thetarotate<0)
-            thetarotate += TWOPI;
-        while(thetarotate>TWOPI)
-            thetarotate -= TWOPI;*/
     }
     virtual void draw()const=0;
-    virtual bool collide(Particle *p)const=0;
     virtual ~Particle()
     {
 

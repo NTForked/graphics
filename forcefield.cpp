@@ -23,5 +23,5 @@ void ForceField::applyforce(Particle *p) const
     float strength=1-orentation.length()/radius;
     if(strength<=0)
         return;
-    p->applyforce(Force(orentation,strength*MaxForce));
+    p->applyforce(Force(orentation,strength*MaxForce*p->mass));
 }

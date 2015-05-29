@@ -53,7 +53,7 @@ float myrand(const float &min,const float &max)
 Particle *emitfunction(const Emmiter &em)
 {
     float x=em.position.X(),y=em.position.Y();
-    BallParticle *b=new BallParticle(Vector3(myrand(x-1,x+1),myrand(y-1,y+1),em.position.Z()),0.2f,2,&deltatime,0.0f,texture);
+    BallParticle *b=new BallParticle(Vector3(myrand(x-1,x+1),myrand(y-1,y+1),em.position.Z()),1,2,&deltatime,0.0f,texture);
     b->velocity=Vector3(0,1,0);
     return b;
 }

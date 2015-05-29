@@ -2,8 +2,6 @@
 #define PARTICLESYSTEM_H
 #include <particle.h>
 #include <deque>
-#include <algorithm>
-
 using namespace std;
 
 class Emmiter;
@@ -25,8 +23,7 @@ public :
     {
 
     }
-
-    void (*oncollide)(Particle *p1,Particle *p2);
+   
     void deleteparticles()
     {
         deque<Particle*>::iterator begin=particles.begin();
@@ -46,27 +43,10 @@ public :
     {
         deque<Particle*>::const_iterator begin=particles.begin();
         deque<Particle*>::const_iterator end=particles.end();
-        if(oncollide!=NULL)
+        for(deque<Particle*>::const_iterator it=begin;it!=end;it++)
         {
-
-            for(deque<Particle*>::const_iterator it=begin;it!=end;it++)
-            {
-                for(deque<Particle*>::const_iterator jit=it;jit!=end;jit++)
-                {
-                    if((*it)->collide(*jit))
-                        oncollide(*it,*jit);
-                }
-                (*it)->proceedintime();
-                (*it)->draw();
-            }
-        }
-        else
-        {
-            for(deque<Particle*>::const_iterator it=begin;it!=end;it++)
-            {
-                (*it)->proceedintime();
-                (*it)->draw();
-            }
+            (*it)->proceedintime();
+            (*it)->draw();
         }
         elapsedtime+=(*deltatime);      
     }
